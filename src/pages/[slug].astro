@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const cooks = await getCollection('cooks');
+  return cooks.map((cook) => ({
+    params: { slug: cook.slug },
+    props: { cook },
+  }));
+}
+
+const { cook } = Astro.props;
+const { Content } = await cook.render();
+---
+<BaseLayout title={cook.data.title}>
+  <article class="cook">
+    <header class="cook-header">
+      <time datetime={cook.data.made_on.toISOString()}>
+        {cook.data.made_on.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}
+      </time>
+      <h1>{cook.data.title}</h1>
+      {(cook.data.source_url || cook.data.source_name) && (
+        <div class="cook-meta">
+          {cook.data.source_url ? (
+            <a href={cook.data.source_url} rel="noopener" class="source-link">
+              from {cook.data.source_name ?? 'source'} →
+            </a>
+          ) : (
+            <span class="source">from {cook.data.source_name}</span>
+          )}
+        </div>
+      )}
+      {cook.data.tags.length > 0 && (
+        <ul class="tags">
+          {cook.data.tags.map((tag) => <li>{tag}</li>)}
+        </ul>
+      )}
+    </header>
+
+    {cook.data.photos.length > 0 && (
+      <div class="photos">
+        {cook.data.photos.map((url) => (
+          <img src={url} alt="" loading="lazy" />
+        ))}
+      </div>
+    )}
+    {cook.data.photo_credit && (
+      <p class="photo-credit">photo: {cook.data.photo_credit}</p>
+    )}
+
+    <div class="cook-body">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

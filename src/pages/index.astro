@@ -1,0 +1,152 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const cooks = (await getCollection('cooks')).sort(
+  (a, b) => b.data.made_on.valueOf() - a.data.made_on.valueOf()
+);
+
+const allTags = Array.from(
+  new Set(cooks.flatMap((c) => c.data.tags))
+).sort();
+
+function variantFromSlug(slug: string): number {
+  let hash = 0;
+  for (let i = 0; i < slug.length; i++) {
+    hash = ((hash << 5) - hash + slug.charCodeAt(i)) | 0;
+  }
+  return Math.abs(hash) % 5;
+}
+---
+<BaseLayout title="Julia cooks" hero={true}>
+  <div class="board-layout">
+    <aside class="filters">
+      <input
+        type="search"
+        id="search"
+        placeholder="search cooks…"
+        class="search-input"
+        autocomplete="off"
+      />
+
+      {allTags.length > 0 && (
+        <div class="filter-group">
+          <h3>tags</h3>
+          <div class="chip-row">
+            {allTags.map((tag) => (
+              <button type="button" class="chip chip-tag" data-filter="tag" data-value={tag}>
+                {tag}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <button type="button" id="clear-filters" class="clear-btn">clear filters</button>
+
+      <p class="cook-count"><span id="visible-count">{cooks.length}</span> of {cooks.length}</p>
+    </aside>
+
+    <section class="board">
+      {cooks.length === 0 ? (
+        <p class="empty">No cooks yet. Go make something.</p>
+      ) : (
+        <div class="cook-grid" id="cook-grid">
+          {cooks.map((cook) => {
+            const hasPhoto = cook.data.photos.length > 0;
+            const variant = variantFromSlug(cook.slug);
+            return (
+              <a
+                href={`/${cook.slug}/`}
+                class={`card ${hasPhoto ? 'has-photo' : `no-photo card-variant-${variant}`}`}
+                data-title={cook.data.title.toLowerCase()}
+                data-source={(cook.data.source_name ?? '').toLowerCase()}
+                data-tags={cook.data.tags.join(',').toLowerCase()}
+              >
+                {hasPhoto && (
+                  <div class="card-photo">
+                    <img src={cook.data.photos[0]} alt="" loading="lazy" />
+                  </div>
+                )}
+                <div class="card-body">
+                  <div class="card-meta">
+                    <time datetime={cook.data.made_on.toISOString()}>
+                      {cook.data.made_on.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}
+                    </time>
+                  </div>
+                  <h2 class="card-title">{cook.data.title}</h2>
+                  {cook.data.source_name && <p class="card-source">from {cook.data.source_name}</p>}
+                  {cook.data.tags.length > 0 && (
+                    <ul class="card-tags">
+                      {cook.data.tags.map((tag) => <li>{tag}</li>)}
+                    </ul>
+                  )}
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      )}
+    </section>
+  </div>
+
+  <script is:inline>
+    (function () {
+      const grid = document.getElementById('cook-grid');
+      if (!grid) return;
+
+      const searchInput = document.getElementById('search');
+      const countEl = document.getElementById('visible-count');
+      const clearBtn = document.getElementById('clear-filters');
+      const cards = Array.from(grid.querySelectorAll('.card'));
+      const tagChips = Array.from(document.querySelectorAll('.chip[data-filter="tag"]'));
+
+      const state = { query: '', tags: new Set() };
+
+      function apply() {
+        const q = state.query.trim().toLowerCase();
+        let visible = 0;
+        for (const card of cards) {
+          const title = card.dataset.title || '';
+          const source = card.dataset.source || '';
+          const tags = (card.dataset.tags || '').split(',').filter(Boolean);
+
+          const matchesQuery = !q || title.includes(q) || source.includes(q) || tags.some((t) => t.includes(q));
+          const matchesTags = state.tags.size === 0 || tags.some((t) => state.tags.has(t));
+
+          const show = matchesQuery && matchesTags;
+          card.style.display = show ? '' : 'none';
+          if (show) visible++;
+        }
+        if (countEl) countEl.textContent = String(visible);
+      }
+
+      searchInput?.addEventListener('input', (e) => {
+        state.query = e.target.value;
+        apply();
+      });
+
+      function toggleChip(chip, set) {
+        const value = chip.dataset.value;
+        if (set.has(value)) {
+          set.delete(value);
+          chip.classList.remove('active');
+        } else {
+          set.add(value);
+          chip.classList.add('active');
+        }
+        apply();
+      }
+
+      tagChips.forEach((chip) => chip.addEventListener('click', () => toggleChip(chip, state.tags)));
+
+      clearBtn?.addEventListener('click', () => {
+        state.query = '';
+        state.tags.clear();
+        if (searchInput) searchInput.value = '';
+        tagChips.forEach((c) => c.classList.remove('active'));
+        apply();
+      });
+    })();
+  </script>
+</BaseLayout>
