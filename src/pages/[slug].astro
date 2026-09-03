@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { cloudinaryUrl, DETAIL_IMAGE } from '../lib/cloudinary';
 
 export async function getStaticPaths() {
   const cooks = await getCollection('cooks');
@@ -41,7 +42,7 @@ const { Content } = await cook.render();
     {cook.data.photos.length > 0 && (
       <div class="photos">
         {cook.data.photos.map((url) => (
-          <img src={url} alt="" loading="lazy" />
+          <img src={cloudinaryUrl(url, DETAIL_IMAGE)} alt="" loading="lazy" />
         ))}
       </div>
     )}

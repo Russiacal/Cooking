@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { cloudinaryUrl, CARD_THUMB } from '../lib/cloudinary';
 
 const cooks = (await getCollection('cooks')).sort(
   (a, b) => b.data.made_on.valueOf() - a.data.made_on.valueOf()
@@ -65,7 +66,7 @@ function variantFromSlug(slug: string): number {
               >
                 {hasPhoto && (
                   <div class="card-photo">
-                    <img src={cook.data.photos[0]} alt="" loading="lazy" />
+                    <img src={cloudinaryUrl(cook.data.photos[0], CARD_THUMB)} alt="" loading="lazy" />
                   </div>
                 )}
                 <div class="card-body">
