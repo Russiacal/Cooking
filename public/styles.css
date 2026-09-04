@@ -17,6 +17,7 @@
 }
 
 * { box-sizing: border-box; }
+img { max-width: 100%; height: auto; }
 
 html, body {
   margin: 0;
@@ -174,16 +175,17 @@ body {
 .empty { color: var(--muted); font-style: italic; }
 
 .cook-grid {
-  column-count: 3;
-  column-gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
 }
-@media (max-width: 1100px) { .cook-grid { column-count: 2; } }
+@media (max-width: 1100px) { .cook-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
 /* Card */
 .card {
   display: block;
-  break-inside: avoid;
-  margin: 0 0 1rem;
+  min-width: 0;
   background: var(--card-bg);
   border-radius: 8px;
   overflow: hidden;
@@ -387,9 +389,11 @@ body {
 
 /* Phones: 2-col board with legible text, capped photos on both surfaces */
 @media (max-width: 500px) {
+  /* Squeeze extra width out of the page so cards fit comfortably */
+  .board-layout { padding: 1rem 0.6rem; gap: 1rem; }
+
   /* Board cards */
-  .cook-grid { column-gap: 0.6rem; }
-  .card { margin-bottom: 0.6rem; }
+  .cook-grid { gap: 0.6rem; }
   .card-photo img { aspect-ratio: 16 / 10; }
   .card-body { padding: 0.7rem 0.75rem 0.85rem; }
   .card-title { font-size: 1.05rem; line-height: 1.2; }
