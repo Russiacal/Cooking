@@ -178,7 +178,6 @@ body {
   column-gap: 1rem;
 }
 @media (max-width: 1100px) { .cook-grid { column-count: 2; } }
-@media (max-width: 500px)  { .cook-grid { column-count: 1; } }
 
 /* Card */
 .card {
@@ -320,9 +319,9 @@ body {
 }
 .photos img:only-child {
   width: 100%;
-  height: 14rem;
-  aspect-ratio: auto;
-  max-height: none;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  max-height: 24rem;
   object-fit: cover;
   object-position: center;
   margin: 0;
@@ -384,4 +383,36 @@ body {
   .site-hero { padding: 2.5rem 1rem 1.75rem; }
   .cook { padding: 1.5rem 1rem 3rem; }
   .cook-header h1 { font-size: 1.75rem; }
+}
+
+/* Phones: 2-col board with legible text, capped photos on both surfaces */
+@media (max-width: 500px) {
+  /* Board cards */
+  .cook-grid { column-gap: 0.6rem; }
+  .card { margin-bottom: 0.6rem; }
+  .card-photo img { aspect-ratio: 16 / 10; }
+  .card-body { padding: 0.7rem 0.75rem 0.85rem; }
+  .card-title { font-size: 1.05rem; line-height: 1.2; }
+  .card-source { font-size: 0.78rem; margin: 0 0 0.4rem; }
+  .card-tags { margin-top: 0.4rem; gap: 0.25rem; }
+  .card-tags li { font-size: 0.68rem; padding: 0.1rem 0.4rem; }
+  .card-meta { font-size: 0.72rem; margin-bottom: 0.3rem; }
+  .card.no-photo .card-title { font-size: 1.15rem; }
+
+  /* Detail page: single-column photos, capped height */
+  .photos {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    margin: 1.25rem 0 0.5rem;
+  }
+  .photos img,
+  .photos img:only-child {
+    aspect-ratio: 4 / 3;
+    max-height: 60vw;
+  }
+
+  /* Detail page body: bigger, more readable */
+  .cook-body { font-size: 1.1rem; line-height: 1.72; }
+  .cook-body h2 { font-size: 1.35rem; margin-top: 1.75rem; }
+  .cook-body h3 { font-size: 1.1rem; }
 }
