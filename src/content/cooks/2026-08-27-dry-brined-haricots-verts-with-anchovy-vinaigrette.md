@@ -8,7 +8,9 @@ tags:
 - anchovy
 - summer
 - weeknight
-photos: []
+photos:
+- https://images.themodernproper.com/production/posts/2022/WhiteBeanSaladwithAnchovyVinaigrette_Shot3_40.jpg?w=1200&h=630&q=82&fm=jpg&fit=crop&dm=1655236129&s=63c7c6540b74b9f8c56f071834685e83
+photo_credit: The Modern Proper
 ---
 
 Made these alongside köfte and balela. I wanted to test dry-brining, because salt on top has never made green beans taste seasoned inside.
