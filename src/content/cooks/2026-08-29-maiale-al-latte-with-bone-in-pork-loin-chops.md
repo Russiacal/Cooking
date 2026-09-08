@@ -7,7 +7,9 @@ tags:
 - italian
 - pork
 - braise
-photos: []
+photos:
+- https://www.sipandfeast.com/wp-content/uploads/2019/04/maiale-al-latte-Facebook.jpg
+photo_credit: Sip and Feast
 ---
 
 I had three pounds of bone-in pork loin chops and came back to maiale al latte, which I had made before with pork shoulder.
