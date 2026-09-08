@@ -8,7 +8,9 @@ tags:
 - rice
 - side
 - tahdig
-photos: []
+photos:
+- https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fill,g_auto,w_1500,ar_3:2/k%2FPhoto%2FRecipes%2F2021-03-nowruz-sabzi-polo%2F2021_nowruz_sabzipolo_shot1_207
+photo_credit: The Kitchn
 ---
 
 I made this as a side for butterflied trout with zhoug and wanted something that would go with it.
