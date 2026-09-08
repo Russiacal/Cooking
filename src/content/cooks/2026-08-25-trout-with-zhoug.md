@@ -7,7 +7,9 @@ tags:
 - fish
 - trout
 - quick
-photos: []
+photos:
+- https://images.177milkstreet.com/production/24c10ee3ec61f60a17a68adf578e307856afed32-5568x3712.jpg?rect=0,395,5568,2923&w=1200&h=630&q=80&auto=format
+photo_credit: Milk Street
 ---
 
 Whole Foods was selling butterflied trout, so I made zhoug to go on it.
