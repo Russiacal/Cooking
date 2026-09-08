@@ -8,7 +8,9 @@ tags:
 - lamb
 - beef
 - weeknight
-photos: []
+photos:
+- https://ozlemsturkishtable.com/files/2013/09/hghvgrrl1.jpg
+photo_credit: Özlem's Turkish Table
 ---
 
 Made these for a weeknight dinner with dry-brined green beans and balela (a Lebanese chickpea and herbs salad). I used Özlem's Kofte 101 as the base because I liked the two meat mix (lamb and beef) but took the spice blend from RecipeTin Eats' lamb koftas as I wanted something a bit more flavorful.
