@@ -8,7 +8,9 @@ tags:
 - toast
 - spring
 - quick
-photos: []
+photos:
+- https://dmlxzvnzyohme.cloudfront.net/2014/04/_1200x630_crop_center-center_82_none_ns/fava-bean-mash-ricotta-toasts640x360.jpg?mtime=1697265848
+photo_credit: PBS Food
 ---
 
 Been hunting fava beans for about two months — nobody had them — and finally found them at Rainbow Grocery, so this was a while coming. Based it on Adrianna Adarme's fava mash ricotta toasts but changed a few things.
