@@ -8,7 +8,9 @@ tags:
 - prawns
 - tapas
 - quick
-photos: []
+photos:
+- https://daenskitchen.com/wp-content/uploads/2025/10/010A0749.jpg
+photo_credit: Daen's Kitchen
 ---
 
 Made this again — the Daen's Kitchen version, the one where you fry the prawn heads and shells in the oil first to build the flavor. I had a bit over a pound of really nice head-on prawns.
