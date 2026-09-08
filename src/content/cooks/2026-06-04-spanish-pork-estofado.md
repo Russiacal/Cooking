@@ -8,7 +8,9 @@ tags:
 - pork
 - stew
 - weeknight
-photos: []
+photos:
+- https://www.owtons.com/wp-content/uploads/2025/04/spanish-pork-potato-chorizo-stew.jpg
+photo_credit: Owton's
 ---
 
 I bought some pork shoulder stew meat and was looking for something different to do with it than my usual italian flavor combos. Claude suggested an estofado which I'd never heard of but this was a total winner.
